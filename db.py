@@ -1,16 +1,16 @@
 from pymongo import MongoClient
 import mysql.connector
 
-mysql_host = 'localhost'
-mysql_user = 'root'
-mysql_password = 'password'
-mysql_db = 'classicmodels'
+mysql_host = 'localhost'     # mysql Host
+mysql_user = 'root'          # mysql User
+mysql_password = 'password'  # mysql Password
+mysql_db = 'classicmodels'   # mysql Database
 
-mongo_uri = 'mongodb://localhost:27017/'
-mongo_db_name = 'customers'
-mongo_collection_name = 'customers'
+mongo_uri = 'mongodb://localhost:27017/'  # mongo URI
+mongo_db_name = 'customers'               # mongo Database 
+mongo_collection_name = 'customers'       # Mongo Collection
 
-mysql_conn = mysql.connector.connect(
+mysql_conn = mysql.connector.connect(  # Mysql Connection
     host=mysql_host, 
     user=mysql_user, 
     password=mysql_password, 
@@ -19,13 +19,13 @@ mysql_conn = mysql.connector.connect(
 
 print("successfull connection")
 
-mysql_cursor = mysql_conn.cursor()
+mysql_cursor = mysql_conn.cursor()   # Mysql cursor
 
-mongo_client = MongoClient(mongo_uri)
-mongo_db = mongo_client[mongo_db_name]
-mongo_collection = mongo_db[mongo_collection_name]
+mongo_client = MongoClient(mongo_uri)  # Mongo Client URI
+mongo_db = mongo_client[mongo_db_name] # Mongo Database
+mongo_collection = mongo_db[mongo_collection_name] # Mongo Collection
 
-mysql_cursor.execute("SELECT * FROM classicmodels.customers")
+mysql_cursor.execute("SELECT * FROM classicmodels.customers") 
 mysql_data = mysql_cursor.fetchall()
 
 for row in mysql_data:
@@ -44,7 +44,7 @@ for row in mysql_data:
     'Credit Limit': int(row[12])
     }
     
-    mongo_collection.insert_one(mongo_document)
+    mongo_collection.insert_one(mongo_document) 
 
 print("Successfull Upload to Mongdb.")
 
